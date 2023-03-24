@@ -1,2 +1,2 @@
 # Sandbox Starkbank
-Integração Sandbox para controle de fatura
+Integração Sandbox para gerenciamento de fatura
