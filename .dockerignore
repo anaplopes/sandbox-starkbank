@@ -1,0 +1,63 @@
+# Git
+.git/
+.github/
+.gitignore
+.gitattributes
+
+# EditorConfig
+.editorconfig
+
+# CI
+.codeclimate.yml
+.travis.yml
+.taskcluster.yml
+.pre-commit-config.yaml
+
+# Docker
+docker/
+Dockerfile
+.dockerignore
+docker-compose.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Mypy
+.mypy_cache
+
+# PyBuilder
+target/
+
+# Virtual environment
+.venv
+venv/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# EditorConfig
+.editorconfig
+
+# Docs
+*.md
+LICENSE
