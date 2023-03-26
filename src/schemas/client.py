@@ -2,7 +2,7 @@ from typing import List
 from pydantic import BaseModel, EmailStr
 
 
-class Address(BaseModel):
+class AddressEntity(BaseModel):
     cep: str
     logradouro: str
     complemento: str
@@ -13,7 +13,7 @@ class Address(BaseModel):
     estadoSigla: str
 
 
-class Client(BaseModel):
+class ClientEntity(BaseModel):
     nome: str
     mae: str
     pai: str
@@ -25,7 +25,7 @@ class Client(BaseModel):
     telefone: str
     celular: str
     dataNascimento: str
-    endereco: Address
+    endereco: AddressEntity
     usuario: str
     signo: str
     tipoSanguineo: str
@@ -36,4 +36,4 @@ class Client(BaseModel):
 class ClientSchema(BaseModel):
     type: str
     limit: int
-    values: List[Client]
+    values: List[ClientEntity]

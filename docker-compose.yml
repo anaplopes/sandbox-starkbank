@@ -11,7 +11,7 @@ services:
     expose:
       - 5432
     healthcheck:
-      test: ["CMD", "pg_isready -U ${DB_USER:-pguser} -d ${DB_NAME:-cashback}"]
+      test: ["CMD", "pg_isready -U ${DB_USER:-pguser} -d ${DB_NAME:-starkbank}"]
       interval: 1m30s
       timeout: 30s
       retries: 5
@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER:-pguser}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-pgpwd}
-      POSTGRES_DB: ${DB_NAME:-cashback}
+      POSTGRES_DB: ${DB_NAME:-starkbank}
     restart: always
     networks:
       - default
