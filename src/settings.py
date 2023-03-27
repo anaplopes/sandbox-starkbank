@@ -17,6 +17,8 @@ class Settings(BaseSettings):
 
     # STARKBANK
     SB_API_URL: str
+    SB_PROJECT_ID: str
+    PRIVATE_KEY: str
 
     # GERADOR BRASILEIRO
     GB_API_URL: str

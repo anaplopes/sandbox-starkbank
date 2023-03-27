@@ -6,6 +6,6 @@ from src.usecases.payment import PaymentUseCase
 payment_router = APIRouter(prefix="/payment", tags=["payment"])
 
 
-@payment_router.post("/invoices")
+@payment_router.post("/invoice")
 async def invoice(payment: Payment, service: PaymentUseCase = Depends()):
-    return await service.update_invoice(payment=payment)
+    return await service.save_payment(payment=payment)

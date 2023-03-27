@@ -1,4 +1,6 @@
 from enum import Enum
+from pydantic import BaseModel
+from typing import List, Optional, Any
 
 
 class IncomingType(str, Enum):
@@ -19,3 +21,10 @@ class State(str, Enum):
     CANCELED = "canceled"
     VOIDED = "voided"  # anulada
     EXPIRED = "expired"
+
+
+class Output(BaseModel):
+    data: Optional[List[Any]] = []
+    message: str
+    error: Optional[str] = None
+    statusCode: int

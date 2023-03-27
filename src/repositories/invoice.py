@@ -13,3 +13,10 @@ class InvoiceRepository:
         self.db.commit()
         self.db.refresh(invoice)
         return invoice
+
+    def filter(self, id) -> InvoiceModel:
+        return (
+            self.db.query(InvoiceModel)
+            .filter(InvoiceModel.extradata["id"] == id)
+            .first()
+        )

@@ -41,3 +41,7 @@ down:
 .PHONY: clean
 clean:
 	docker system prune --all --force --volumes
+
+.PHONY: key
+key:
+	python3 src/infra/starkbank/keys.py

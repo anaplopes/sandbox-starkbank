@@ -976,6 +976,46 @@ pymysql = ["pymysql"]
 sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
+name = "starkbank"
+version = "2.18.1"
+description = "SDK to facilitate Python integrations with Stark Bank"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "starkbank-2.18.1.tar.gz", hash = "sha256:3b5e34b7a774fcc47598233d1aa03951580c180fee9fb72f6717bf6ce30fa893"},
+]
+
+[package.dependencies]
+starkcore = ">=0.0.5"
+
+[[package]]
+name = "starkbank-ecdsa"
+version = "2.2.0"
+description = "A lightweight and fast pure python ECDSA library"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "starkbank-ecdsa-2.2.0.tar.gz", hash = "sha256:9399c3371b899d4a235b68a1ed7919d202fbf024bd2c863ae8ebdad343c2a63a"},
+]
+
+[[package]]
+name = "starkcore"
+version = "0.0.9"
+description = "Basic SDK functionalities for the starkbank and starkinfra SDKs"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "starkcore-0.0.9.tar.gz", hash = "sha256:0ba556332a69c7443de5a036aa29725921345dcc0bdc81c8ce2e114f06b0beea"},
+]
+
+[package.dependencies]
+requests = ">=2.23.0"
+starkbank-ecdsa = ">=2.0.3"
+
+[[package]]
 name = "starlette"
 version = "0.26.1"
 description = "The little ASGI library that shines."
@@ -1077,4 +1117,4 @@ test = ["covdefaults (>=2.2.2)", "coverage (>=7.1)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "33068a71aa12c923057960925676a8f755efb5e230c420038f2b053e04f0cffe"
+content-hash = "a2f6cb0bbdbcc075abe5a4ad638d298bf34e276d3fb52687d4997e3de6cec38c"
