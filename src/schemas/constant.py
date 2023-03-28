@@ -9,6 +9,7 @@ class IncomingType(str, Enum):
 
 class OutgoingType(str, Enum):
     INVOICE = "invoice"
+    TRANSFER = "transfer"
 
 
 class State(str, Enum):
@@ -21,6 +22,28 @@ class State(str, Enum):
     CANCELED = "canceled"
     VOIDED = "voided"  # anulada
     EXPIRED = "expired"
+
+
+class InvoiceTag(str, Enum):
+    SCHEDULED = "scheduled"
+    IMMEDIATE = "immediate"
+
+
+class AccountType(str, Enum):
+    PAYMENT = "payment"
+    SALARY = "salary"
+
+
+class BankCode(str, Enum):
+    TED = "033"
+    PIX = "20018183"
+
+
+class StarkBankAccount(str, Enum):
+    BRANCH_CODE = ("0001",)
+    ACCOUNT_NUMBER = ("6341320293482496",)
+    TAX_ID = ("20.018.183/0001-80",)
+    NAME = "Stark Bank S.A."
 
 
 class Output(BaseModel):

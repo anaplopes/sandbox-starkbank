@@ -43,6 +43,47 @@ services:
     depends_on:
       - db
 
+  worker:
+    container_name: worker
+    hostname: worker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - default
+    depends_on:
+      - api
+      - redis
+
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:6-alpine
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - default
+
+  dashboard:
+    container_name: dashboard
+    hostname: dashboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5556:5555
+    env_file:
+      - .env
+    networks:
+      - default
+    depends_on:
+      - api
+      - redis
+      - worker
+
 networks:
   default:
     driver: bridge

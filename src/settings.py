@@ -1,5 +1,5 @@
 import logging
-from pydantic import BaseSettings, PostgresDsn
+from pydantic import BaseSettings, PostgresDsn, RedisDsn
 
 
 class Settings(BaseSettings):
@@ -16,12 +16,16 @@ class Settings(BaseSettings):
     DB_URI: PostgresDsn
 
     # STARKBANK
-    SB_API_URL: str
+    SB_API_URL: str = "https://sandbox.api.starkbank.com/v2"
     SB_PROJECT_ID: str
     PRIVATE_KEY: str
 
     # GERADOR BRASILEIRO
-    GB_API_URL: str
+    GB_API_URL: str = "https://geradorbrasileiro.com/api/faker"
+
+    # CELERY
+    CELERY_BROKER_URL: RedisDsn
+    CELERY_RESULT_BACKEND: RedisDsn
 
     class Config:
         case_sensitive = True

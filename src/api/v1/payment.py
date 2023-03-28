@@ -8,4 +8,4 @@ payment_router = APIRouter(prefix="/payment", tags=["payment"])
 
 @payment_router.post("/invoice")
 async def invoice(payment: Payment, service: PaymentUseCase = Depends()):
-    return await service.save_payment(payment=payment)
+    return await service.task(payment=payment)

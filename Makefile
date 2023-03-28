@@ -26,9 +26,9 @@ requirements:
 test:
 	pytest -v
 
-.PHONY: up-db
-up-db:
-	docker compose up -d db
+.PHONY: up-dbs
+up-dbs:
+	docker compose up -d db redis
 
 .PHONY: up
 up:
@@ -42,6 +42,6 @@ down:
 clean:
 	docker system prune --all --force --volumes
 
-.PHONY: key
-key:
+.PHONY: keys
+keys:
 	python3 src/infra/starkbank/keys.py

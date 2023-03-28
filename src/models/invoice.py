@@ -11,6 +11,6 @@ class InvoiceModel(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     type = Column(String(20), nullable=False)
     state = Column(String(50), nullable=False)
-    metadata = Column(JSON, nullable=False)
+    correlation_id = Column(UUID(as_uuid=True), nullable=True)
     extradata = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
