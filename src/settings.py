@@ -12,6 +12,11 @@ class Settings(BaseSettings):
     APP_NAME: str = "Sandbox Starkbank"
     APP_DESCRIPTION: str = "Integração Sandbox para gerenciamento de fatura."
 
+    # CELERY
+    WORKER_NAME: str = "SandboxStarkbank"
+    CELERY_BROKER_URL: RedisDsn
+    CELERY_RESULT_BACKEND: RedisDsn
+
     # DATABASE
     DB_URI: PostgresDsn
 
@@ -22,10 +27,6 @@ class Settings(BaseSettings):
 
     # GERADOR BRASILEIRO
     GB_API_URL: str = "https://geradorbrasileiro.com/api/faker"
-
-    # CELERY
-    CELERY_BROKER_URL: RedisDsn
-    CELERY_RESULT_BACKEND: RedisDsn
 
     class Config:
         case_sensitive = True

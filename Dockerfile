@@ -39,4 +39,7 @@ RUN poetry install
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
+ARG NAME
+ENV NAME=$NAME
+
 ENTRYPOINT ["./entrypoint.sh"]

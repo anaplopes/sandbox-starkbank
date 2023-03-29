@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from src.settings import settings
-from src.worker import create_task
 from src.api.v1.payment import payment_router
 from fastapi.middleware.cors import CORSMiddleware
 from src.infra.database.modelbase import model_init
@@ -46,14 +45,6 @@ def create_app() -> FastAPI:
 
     # Initialise Data Model
     model_init()
-
-    @app.on_event("startup")
-    async def startup_event() -> None:
-        create_task()
-
-    @app.on_event("shutdown")
-    async def shutdown_event() -> None:
-        ...
 
     return app
 

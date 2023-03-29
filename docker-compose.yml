@@ -31,7 +31,8 @@ services:
     hostname: api
     build:
       context: .
-      dockerfile: Dockerfile
+      args:
+        NAME: api
     ports:
       - "8000:8000"
     expose:
@@ -46,9 +47,11 @@ services:
   worker:
     container_name: worker
     hostname: worker
+    command: worker
     build:
       context: .
-      dockerfile: Dockerfile
+      args:
+        NAME: worker
     env_file:
       - .env
     networks:
@@ -72,9 +75,10 @@ services:
     hostname: dashboard
     build:
       context: .
-      dockerfile: Dockerfile
+      args:
+        NAME: dashboard
     ports:
-      - 5556:5555
+      - 5555:5555
     env_file:
       - .env
     networks:
