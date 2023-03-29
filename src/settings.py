@@ -13,7 +13,6 @@ class Settings(BaseSettings):
     APP_DESCRIPTION: str = "Integração Sandbox para gerenciamento de fatura."
 
     # CELERY
-    WORKER_NAME: str = "SandboxStarkbank"
     CELERY_BROKER_URL: RedisDsn
     CELERY_RESULT_BACKEND: RedisDsn
 

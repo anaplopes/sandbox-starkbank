@@ -47,7 +47,6 @@ services:
   worker:
     container_name: worker
     hostname: worker
-    command: worker
     build:
       context: .
       args:
@@ -63,7 +62,7 @@ services:
   redis:
     container_name: redis
     hostname: redis
-    image: redis:6-alpine
+    image: redis:latest
     env_file:
       - .env
     restart: always

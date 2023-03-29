@@ -4,15 +4,16 @@ from celery.schedules import crontab
 
 
 celery_app = Celery(
-    settings.WORKER_NAME,
+    "worker",
     broker=settings.CELERY_BROKER_URL,
     backend=settings.CELERY_RESULT_BACKEND,
+    include=["src.tasks.invoice"],
 )
 
 
 celery_app.conf.beat_schedule = {
     "invoice-every-three-hours": {
-        "task": "src.tasks.task_invoice.invoice",
+        "task": "src.tasks.invoice.check",
         "schedule": crontab(),  # crontab(minute=0, hour='*/3')
     }
 }
