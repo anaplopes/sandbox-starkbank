@@ -102,7 +102,7 @@ Adicione as variaveis de ambiente no arquivo `.env`
     - SB_PROJECT_ID: identificação do projeto no sandbox Starkbank
     - PRIVATE_KEY: chave privada para credencial
 
-  - Opcional (***Essa mudança afetará a configuração DB_URI nos arquivos `.env*`)
+  - Opcional (***Essa mudança afetará a configuração DB_URI e CELERY_* nos arquivos `.env*`)
     - DB_USER: usuario do banco de dados
     - DB_PASSWORD: senha do banco de dados
     - DB_NAME: nome do banco de dados
