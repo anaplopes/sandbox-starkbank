@@ -14,9 +14,13 @@ lint:
 	black .
 	flake8 .
 
-.PHONY: runserver
-runserver:
+.PHONY: run-server
+run-server:
 	uvicorn src.main:create_app --reload
+
+.PHONY: run-worker
+run-worker:
+	celery -A src.celery worker -B --loglevel=info -E
 
 .PHONY: requirements
 requirements:
@@ -26,9 +30,9 @@ requirements:
 test:
 	pytest -v
 
-.PHONY: up-dbs
-up-dbs:
-	docker compose up -d db redis
+.PHONY: up-infra
+up-infra:
+	docker compose up -d db redis dashboard
 
 .PHONY: up
 up:

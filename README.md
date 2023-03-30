@@ -68,16 +68,22 @@ Adicione as variaveis de ambiente no arquivo `.env.dev`
   - SB_PROJECT_ID: identificação do projeto no sandbox Starkbank
   - PRIVATE_KEY: chave privada para credencial
 
-Inicie o container do banco de dados
+Inicie os containers db, redis, dashboard
 
 ```bash
-  make up-db
+  make up-infra
 ```
 
-Inicie o servidor
+Inicie a api
 
 ```bash
-  make runserver
+  make run-server
+```
+
+Inicie o worker
+
+```bash
+  make run-worker
 ```
 
 Para rodar os testes, rode o seguinte comando

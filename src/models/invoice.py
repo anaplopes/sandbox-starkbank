@@ -9,7 +9,7 @@ class InvoiceModel(Base):
     __tablename__ = "invoice"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    type = Column(String(20), nullable=False)
+    datatype = Column(String(20), nullable=False)
     state = Column(String(50), nullable=False)
     correlation_id = Column(UUID(as_uuid=True), nullable=True)
     extradata = Column(JSON, nullable=True)

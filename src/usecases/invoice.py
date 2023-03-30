@@ -1,12 +1,15 @@
 import json
 import random
+import starkbank
+from typing import List
 from fastapi import Depends
 from starkbank import Invoice
 from datetime import date, timedelta
 from src.models.invoice import InvoiceModel
+from src.infra.starkbank.credential import project
 from src.schemas.constant import OutgoingType, State, InvoiceTag
-from src.repositories.invoice import InvoiceRepository
 from src.schemas.client import ClientSchema, ClientEntity
+from src.repositories.invoice import InvoiceRepository
 from src.infra.geradorbrasileiro.client import GeradorBrasileiroClient
 from src.infra.geradorbrasileiro.exceptions import (
     GeradorBrasileiroException,
@@ -26,7 +29,7 @@ class InvoiceUseCase:
     async def generate_client(self, quantity: int = 1) -> ClientEntity | None:
         try:
             send = self.geradorbrasileiro_client.get_person(limit=quantity)
-            data: ClientSchema = json.loads(send.response)
+            data = ClientSchema(**send.response)
             return data.values
         except GeradorBrasileiroRequestException or GeradorBrasileiroException:
             return
@@ -36,28 +39,31 @@ class InvoiceUseCase:
             amount=random.randint(1, 1000),
             due=date.today() + timedelta(days=10),
             name=client.nome,
-            taxId=client.cpf,
+            tax_id=client.cpf,
+            fine=5,
+            interest=2.5,
             tags=[InvoiceTag.SCHEDULED],
         )
 
-    async def save_invoices(self, invoices: list) -> None:
+    async def save_invoices(self, invoices: List[Invoice]) -> None:
         for invoice in invoices:
             self.repository.add(
                 invoice=InvoiceModel(
-                    type=OutgoingType.INVOICE,
+                    datatype=OutgoingType.INVOICE,
                     state=State.SENT,
-                    correlation_id=None,
-                    extradata=invoice,
+                    extradata=json.dumps(invoice, default=str),
                 )
             )
 
-    async def task(self):
-        # invoices = []
-        clients: ClientEntity = self.generate_client(quantity=8)
-        print(clients)
-        # if clients:
-        #     for client in clients:
-        #         invoices.append(self.generate_invoice(client=client))
+    async def send_invoices(self):
+        invoices = []
+        clients = await self.generate_client(quantity=8)
+        if clients:
+            for client in clients:
+                invoice = await self.generate_invoice(client=client)
+                invoices.append(invoice)
 
-        #     create_invoices = self.send_invoices(invoices=invoices)
-        #     self.save_invoices(invoices=create_invoices)
+            create_invoices = starkbank.invoice.create(user=project, invoices=invoices)
+            await self.save_invoices(invoices=create_invoices)
+            return "OK"
+        return

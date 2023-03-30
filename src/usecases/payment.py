@@ -52,7 +52,7 @@ class PaymentUseCase:
             )
         )
 
-    async def task(self, payment):
+    async def receive_payment(self, payment):
         invoice: InvoiceModel = self.repository.filter(id=payment.id)
         if not invoice:
             raise HTTPException(

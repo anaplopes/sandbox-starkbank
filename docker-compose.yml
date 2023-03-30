@@ -56,13 +56,16 @@ services:
     networks:
       - default
     depends_on:
-      - api
       - redis
 
   redis:
     container_name: redis
     hostname: redis
     image: redis:latest
+    ports:
+      - "6379:6379"
+    expose:
+      - 6379
     env_file:
       - .env
     restart: always
@@ -78,14 +81,14 @@ services:
         NAME: dashboard
     ports:
       - 5555:5555
+    expose:
+      - 5555
     env_file:
       - .env
     networks:
       - default
     depends_on:
-      - api
       - redis
-      - worker
 
 networks:
   default:

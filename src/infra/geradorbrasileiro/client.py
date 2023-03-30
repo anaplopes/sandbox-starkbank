@@ -1,3 +1,4 @@
+import json
 import requests
 from typing import Type
 from src.settings import settings
@@ -50,5 +51,5 @@ class GeradorBrasileiroClient:
             return self._default_return(
                 status_code=response.status_code,
                 request=request,
-                response=response.text,
+                response=json.loads(response.text),
             )
