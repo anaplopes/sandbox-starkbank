@@ -57,7 +57,7 @@ class InvoiceUseCase:
 
     async def send_invoices(self) -> str:
         invoices = []
-        clients = await self.generate_client(quantity=1)
+        clients = await self.generate_client(quantity=8)
         if clients:
             for client in clients:
                 invoice = await self.generate_invoice(client=client)

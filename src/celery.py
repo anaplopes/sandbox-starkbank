@@ -16,6 +16,6 @@ celery_app.conf.update(task_serializer="json", result_serializer="json")
 celery_app.conf.beat_schedule = {
     "invoice-every-three-hours": {
         "task": "src.tasks.invoice.send",
-        "schedule": crontab(),  # crontab(minute=0, hour='*/3')
+        "schedule": crontab(minute=0, hour="*/3"),
     }
 }
