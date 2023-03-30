@@ -65,6 +65,8 @@ Criar um projeto no [Sandbox](https://web.sandbox.starkbank.com/)
 
 Adicione as variaveis de ambiente no arquivo `.env.dev`
   - DB_URI: "postgresql://{DB_USER}:{DB_PASSWORD}@localhost:5432/{DB_NAME}"
+  - CELERY_BROKER_URL: "redis://localhost:6379/0"
+  - CELERY_RESULT_BACKEND: "redis://localhost:6379/0"
   - SB_PROJECT_ID: identificação do projeto no sandbox Starkbank
   - PRIVATE_KEY: chave privada para credencial
 
@@ -99,15 +101,15 @@ Adicione as variaveis de ambiente no arquivo `.env`
 
   - Obrigatório
     - DB_URI: "postgresql://{DB_USER}:{DB_PASSWORD}@db:5432/{DB_NAME}"
+    - CELERY_BROKER_URL: "redis://redis:6379/0"
+    - CELERY_RESULT_BACKEND: "redis://redis:6379/0"
     - SB_PROJECT_ID: identificação do projeto no sandbox Starkbank
     - PRIVATE_KEY: chave privada para credencial
 
-  - Opcional (***Essa mudança afetará a configuração DB_URI e CELERY_* nos arquivos `.env*`)
+  - Opcional (***Essa mudança afetará a configuração DB_URI nos arquivos `.env` e `.env.dev`)
     - DB_USER: usuario do banco de dados
     - DB_PASSWORD: senha do banco de dados
-    - DB_NAME: nome do banco de dados
-    - CELERY_BROKER_URL: 
-    - CELERY_RESULT_BACKEND: 
+    - DB_NAME: nome do banco de dados 
 
 Inicie todos os containers
 
