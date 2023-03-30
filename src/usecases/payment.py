@@ -1,6 +1,7 @@
 import starkbank
 from starkbank import Transfer
 from src.models.invoice import InvoiceModel
+from src.infra.starkbank.credential import project
 from fastapi import Depends, status, HTTPException
 from src.repositories.invoice import InvoiceRepository
 from src.schemas.constant import (
@@ -42,7 +43,7 @@ class PaymentUseCase:
             )
         )
 
-    async def save_payment(self, payment, invoice_id) -> None:
+    async def save_payment(self, payment, invoice_id):
         self.repository.add(
             invoice=InvoiceModel(
                 type=IncomingType.PAYMENT,
@@ -53,21 +54,20 @@ class PaymentUseCase:
         )
 
     async def receive_payment(self, payment):
-        invoice: InvoiceModel = self.repository.filter(id=payment.id)
+        invoice = self.repository.filter(id=payment.id)
         if not invoice:
             raise HTTPException(
                 detail="No invoice found", status_code=status.HTTP_404_NOT_FOUND
             )
 
-        payment_save = self.save_payment(payment=payment, invoice_id=invoice.id)
+        await self.save_payment(payment=payment, invoice_id=invoice.id)
 
         if payment.status == State.PAID:
-            transfer: Transfer = self.generate_transfer(amount=payment.amount)
-            starkbank.transfer.create([transfer])
-            self.save_transfer(transfer=transfer, invoice_id=invoice.id)
+            transfer = await self.generate_transfer(amount=payment.amount)
+            starkbank.transfer.create(user=project, transfers=[transfer])
+            await self.save_transfer(transfer=transfer, invoice_id=invoice.id)
 
         return Output(
-            data=[{"id": payment_save.id}],
-            message="Payment successfully registered",
+            detail="Payment successfully registered",
             statusCode=status.HTTP_201_CREATED,
         )

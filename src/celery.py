@@ -10,6 +10,8 @@ celery_app = Celery(
     include=["src.tasks.invoice"],
 )
 
+celery_app.conf.update(task_serializer="json", result_serializer="json")
+
 
 celery_app.conf.beat_schedule = {
     "invoice-every-three-hours": {

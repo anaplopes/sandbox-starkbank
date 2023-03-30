@@ -68,7 +68,7 @@ Adicione as variaveis de ambiente no arquivo `.env.dev`
   - CELERY_BROKER_URL: "redis://localhost:6379/0"
   - CELERY_RESULT_BACKEND: "redis://localhost:6379/0"
   - SB_PROJECT_ID: identificação do projeto no sandbox Starkbank
-  - PRIVATE_KEY: chave privada para credencial
+  - PRIVATE_KEY: chave privada que você criou `file/keys/`
 
 Inicie os containers db, redis, dashboard
 

@@ -7,9 +7,9 @@ from starkbank import Invoice
 from datetime import date, timedelta
 from src.models.invoice import InvoiceModel
 from src.infra.starkbank.credential import project
-from src.schemas.constant import OutgoingType, State, InvoiceTag
-from src.schemas.client import ClientSchema, ClientEntity
 from src.repositories.invoice import InvoiceRepository
+from src.schemas.client import ClientSchema, ClientEntity
+from src.schemas.constant import OutgoingType, State, InvoiceTag
 from src.infra.geradorbrasileiro.client import GeradorBrasileiroClient
 from src.infra.geradorbrasileiro.exceptions import (
     GeradorBrasileiroException,
@@ -36,12 +36,12 @@ class InvoiceUseCase:
 
     async def generate_invoice(self, client: ClientEntity) -> Invoice:
         return Invoice(
-            amount=random.randint(1, 1000),
+            amount=random.randint(1, 500),
             due=date.today() + timedelta(days=10),
             name=client.nome,
             tax_id=client.cpf,
-            fine=5,
-            interest=2.5,
+            fine=2,
+            interest=1,
             tags=[InvoiceTag.SCHEDULED],
         )
 
@@ -55,9 +55,9 @@ class InvoiceUseCase:
                 )
             )
 
-    async def send_invoices(self):
+    async def send_invoices(self) -> str:
         invoices = []
-        clients = await self.generate_client(quantity=8)
+        clients = await self.generate_client(quantity=1)
         if clients:
             for client in clients:
                 invoice = await self.generate_invoice(client=client)
@@ -65,5 +65,5 @@ class InvoiceUseCase:
 
             create_invoices = starkbank.invoice.create(user=project, invoices=invoices)
             await self.save_invoices(invoices=create_invoices)
-            return "OK"
-        return
+            return {"detail": "Invoices successfully registered"}
+        return {"detail": "No client found"}
