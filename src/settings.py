@@ -1,3 +1,4 @@
+import os
 import logging
 from pydantic import BaseSettings, PostgresDsn, RedisDsn
 
@@ -8,7 +9,8 @@ class Settings(BaseSettings):
     API_VERSION: str = "0.1.0"
 
     # APP
-    DEBUG: str = False
+    ENVIRONMENT: str = "dev"
+    DEBUG: bool = False
     APP_NAME: str = "Sandbox Starkbank"
     APP_DESCRIPTION: str = "Integração Sandbox para gerenciamento de fatura."
 
@@ -30,10 +32,11 @@ class Settings(BaseSettings):
 
     class Config:
         case_sensitive = True
-        env_file = ".env.dev"
-        env_file_encoding = "utf-8"
 
 
 log = logging.getLogger("uvicorn")
 log.info("Loading config settings from the environment...")
-settings = Settings()
+
+
+environment = os.getenv("ENVIRONMENT", "dev")
+settings = Settings(_env_file=f".env.{environment}")

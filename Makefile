@@ -16,7 +16,7 @@ lint:
 
 .PHONY: run-server
 run-server:
-	uvicorn src.main:create_app --reload
+	uvicorn src.main:app --reload
 
 .PHONY: run-worker
 run-worker:

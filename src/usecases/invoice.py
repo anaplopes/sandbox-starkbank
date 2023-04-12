@@ -65,5 +65,5 @@ class InvoiceUseCase:
 
             create_invoices = starkbank.invoice.create(user=project, invoices=invoices)
             await self.save_invoices(invoices=create_invoices)
-            return {"detail": "Invoices successfully registered"}
-        return {"detail": "No client found"}
+            return "Invoices successfully registered"
+        return "No client found"

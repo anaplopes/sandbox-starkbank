@@ -6,11 +6,6 @@ from src.infra.database.modelbase import model_init
 from fastapi_healthcheck import HealthCheckFactory, healthCheckRoute
 
 
-import logging
-
-log = logging.getLogger("uvicorn")
-
-
 # Core Application Instance
 def create_app() -> FastAPI:
     app = FastAPI(
